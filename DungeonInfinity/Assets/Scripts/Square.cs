@@ -9,32 +9,28 @@ public class Square : MonoBehaviour
     public float y = 0;
     private bool hasBeenChecked;
     private GameObject tile;
-    public Sprite newSprite;
+    public Sprite sprite;
+    private int id;
 
-    public Square(float x, float y, GameObject gridSpace, float scale, int id)
+    public Square(float x, float y, GameObject gridSpace, float scale, Sprite sprite, int id)
     {
         this.x = x;
         this.y = y;
-
+        this.sprite = sprite;
         hasBeenChecked = false;
+        this.id = id;
+
         tile = gridSpace;
+        tile.GetComponent<SpriteRenderer>().sprite = sprite;
         tile.transform.localScale = new Vector3(scale, scale, 1);
         Point p = rotateXAxis(x, y, tile);
-        Instantiate(gridSpace, new Vector3(p.getX(), p.getY(), 0), Quaternion.Euler(60, 0, 45));
-        Debug.Log(id);
-        if (id == 1)
-        {
-            changeSprite("Hex");
-        }
-        else
-        {
-            changeSprite("TestSquare");
-        }
+
+        Instantiate(tile, new Vector3(p.getX(), p.getY(), 0), Quaternion.Euler(60, 0, 45));
     }
 
     private void changeSprite(String sprite)
     {
-        tile.GetComponent<SpriteRenderer>().sprite = Resources.Load(sprite, typeof(Sprite)) as Sprite;
+        
     }
 
     public bool check()

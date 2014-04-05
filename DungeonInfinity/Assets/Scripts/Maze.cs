@@ -3,7 +3,9 @@ using System.Collections;
 
 public class Maze : MonoBehaviour {
 
-public GameObject Square;
+public Sprite gridSpace;
+public Sprite edgeSpace;
+public GameObject grid;
 
 	// Use this for initialization
 	void Start () {
@@ -13,13 +15,15 @@ public GameObject Square;
         {
             for (int j = 0; j < height; j++) //(int j = -(height + i - 1); j < height - i + 1; j++)
             {
-                Debug.Log(i + ": " + j);
-                int id = 0;
-                if (i == 0)//|| j == height - i - 1 || i == 0 || i == width)
+                if (i == 0 || i == width - 1 || j  == 0 || j == height -1)//|| j == height - i - 1 || i == 0 || i == width)
                 {
-                    id = 1;
+                    new Square(i, j, grid, 1, edgeSpace,1);
                 }
-                new Square(i, j, Square, 1,id);
+                else
+                {
+                    new Square(i, j, grid, 1, gridSpace,0);
+
+                }
             }
 		}
 	}

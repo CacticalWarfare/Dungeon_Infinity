@@ -2,14 +2,11 @@
 using System;
 
 public class CharacterController : MonoBehaviour {
-
-
 	public float maxSpeed = 10;
 	private bool facingRight = true;
     private Vector3 velocity = Vector3.zero;
     public Vector3 target;
 	Animator anim;
-	
 	
 	// Use this for initialization
 	void Start () {

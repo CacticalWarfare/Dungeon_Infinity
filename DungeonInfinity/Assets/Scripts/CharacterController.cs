@@ -64,26 +64,21 @@ public class CharacterController : MonoBehaviour {
             //target.z = -20;
 
             //transform.position = Vector3.SmoothDamp(transform.position, target, ref velocity, .5f, 20f);
-
-            if (target.x < 0 && !facingRight)
-                flip();
-            else if (target.x > 0 && facingRight)
-                flip();
         }
         if(transform.position != goalPosition)
             transform.position = Vector3.SmoothDamp(transform.position, goalPosition, ref velocity, .3f, maxSpeed);
 
-        //float moveX = Input.GetAxis("Horizontal");
-        //float moveY = Input.GetAxis("Vertical");
-        //float move = (float) Math.Sqrt(Math.Pow(moveX, 2) + Math.Pow(moveY,2));
+        float moveX = goalPosition.x - transform.position.x;
+        float moveY = goalPosition.y - transform.position.y;
+        float move = (float) Math.Sqrt(Math.Pow(moveX, 2) + Math.Pow(moveY,2));
 
-        //anim.SetFloat("Speed", Mathf.Abs(move));
+        anim.SetFloat("Speed", Mathf.Abs(move));
 
         //rigidbody2D.velocity = new Vector2(moveX * maxSpeed, moveY * maxSpeed);
-        //if(moveX > 0 && !facingRight) 
-        //    flip();
-        //else if(moveX < 0 && facingRight)
-        //    flip();
+        if(moveX > 0 && !facingRight) 
+            flip();
+        else if(moveX < 0 && facingRight)
+            flip();
 		
 		
 	}

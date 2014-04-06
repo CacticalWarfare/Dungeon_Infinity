@@ -17,7 +17,7 @@ public class CharacterController : MonoBehaviour {
 	void Start () {
 		anim = GetComponent<Animator>();
         goalPosition = transform.position;
-        target = Vector3.zero;
+        //target = Vector3.zero;
 	}
 	
 	// Update is called once per frame

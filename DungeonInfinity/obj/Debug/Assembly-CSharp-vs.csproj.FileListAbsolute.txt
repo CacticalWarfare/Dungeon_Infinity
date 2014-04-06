@@ -1,0 +1,11 @@
+C:\Users\danubian\Documents\GitHub\Dungeon_Infinity\DungeonInfinity\Temp\bin\Debug\Assembly-CSharp.dll
+C:\Users\danubian\Documents\GitHub\Dungeon_Infinity\DungeonInfinity\Temp\bin\Debug\Assembly-CSharp.pdb
+C:\Users\danubian\Documents\GitHub\Dungeon_Infinity\DungeonInfinity\Temp\bin\Debug\UnityEditor.dll
+C:\Users\danubian\Documents\GitHub\Dungeon_Infinity\DungeonInfinity\Temp\bin\Debug\UnityEngine.dll
+C:\Users\danubian\Documents\GitHub\Dungeon_Infinity\DungeonInfinity\Temp\bin\Debug\Mono.Cecil.dll
+C:\Users\danubian\Documents\GitHub\Dungeon_Infinity\DungeonInfinity\Temp\bin\Debug\nunit.framework.dll
+C:\Users\danubian\Documents\GitHub\Dungeon_Infinity\DungeonInfinity\Temp\bin\Debug\Unity.DataContract.dll
+C:\Users\danubian\Documents\GitHub\Dungeon_Infinity\DungeonInfinity\Temp\bin\Debug\ICSharpCode.NRefactory.dll
+C:\Users\danubian\Documents\GitHub\Dungeon_Infinity\DungeonInfinity\obj\Debug\Assembly-CSharp-vs.csprojResolveAssemblyReference.cache
+C:\Users\danubian\Documents\GitHub\Dungeon_Infinity\DungeonInfinity\obj\Debug\Assembly-CSharp.dll
+C:\Users\danubian\Documents\GitHub\Dungeon_Infinity\DungeonInfinity\obj\Debug\Assembly-CSharp.pdb

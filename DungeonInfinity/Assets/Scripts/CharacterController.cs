@@ -2,11 +2,7 @@
 using System;
 
 public class CharacterController : MonoBehaviour {
-<<<<<<< HEAD
-	public float maxSpeed = 10;
-=======
 	public float maxSpeed = 60f;
->>>>>>> origin/temp
 	private bool facingRight = true;
     private Vector3 velocity = Vector3.zero;
 

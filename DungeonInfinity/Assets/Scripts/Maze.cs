@@ -6,6 +6,7 @@ public class Maze : MonoBehaviour {
 public Sprite gridSpace;
 public Sprite edgeSpace;
 public GameObject grid;
+//private Square[,] array new Square[,];
 
 	// Use this for initialization
 	void Start () {

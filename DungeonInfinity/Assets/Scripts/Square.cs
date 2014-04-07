@@ -50,8 +50,8 @@ public class Square : MonoBehaviour
     private Point rotateXAxis(float x, float y, GameObject tile)
     {
 
-        float newX = (float)((tile.renderer.bounds.size.x * x + tile.renderer.bounds.size.y * y) / Math.Sqrt(2));//(float)(tile.renderer.bounds.size.x * x * Math.Sqrt(2)) + (float)(tile.renderer.bounds.size.y * y / Math.Sqrt(2));
-        float newY = (float)((tile.renderer.bounds.size.y * y - tile.renderer.bounds.size.x * x) / 2.85);//(float)(tile.renderer.bounds.size.y * y / 2.85);
+        float newX = (float)((tile.renderer.bounds.size.x * x + tile.renderer.bounds.size.y * y) / Math.Sqrt(2));
+        float newY = (float)((tile.renderer.bounds.size.y * y - tile.renderer.bounds.size.x * x) / 2.85);
 
         return new Point(newX, newY);
     }
@@ -61,7 +61,7 @@ public class Square : MonoBehaviour
         path = true;
         hasBeenCheckedTwice = true;
         ArrayList neighbors = getNeighbors();
-        System.Random rand = new System.Random(10);
+        System.Random rand = new System.Random(x*2 + y);
         while (neighbors.Count > 0)
         {
             int i = (int) (rand.NextDouble() * neighbors.Count);

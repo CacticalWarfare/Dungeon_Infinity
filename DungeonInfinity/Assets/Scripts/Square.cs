@@ -14,6 +14,7 @@ public class Square : MonoBehaviour
     private Sprite sprite;
     private int id;
     private float scale;
+    public int distance = 0;
 
     public Square(int x, int y, GameObject tile, float scale, Sprite sprite, int id)
     {

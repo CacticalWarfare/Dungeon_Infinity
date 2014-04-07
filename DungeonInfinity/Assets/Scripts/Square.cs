@@ -8,19 +8,30 @@ public class Square : MonoBehaviour
     public int x = 0;
     public int y = 0;
     private bool hasBeenChecked;
+    private bool hasBeenCheckedTwice;
+    private bool path = false;
     private GameObject tile;
-    public Sprite sprite;
+    private Sprite sprite;
+    private Sprite sprite2;
     private int id;
+    private float scale;
 
-    public Square(int x, int y, GameObject gridSpace, float scale, Sprite sprite, int id)
+    public Square(int x, int y, GameObject tile, float scale, Sprite sprite, int id,Sprite sprite2)
     {
         this.x = x;
         this.y = y;
         this.sprite = sprite;
         hasBeenChecked = false;
+        hasBeenCheckedTwice = false;
         this.id = id;
+        this.tile = tile;
+        this.sprite = sprite;
+        this.scale = scale;
+        this.sprite2 = sprite2;
+    }
 
-        tile = gridSpace;
+    public void instantiate()
+    {
         tile.GetComponent<SpriteRenderer>().sprite = sprite;
         tile.transform.localScale = new Vector3(scale, scale, 1);
         Point p = rotateXAxis(x, y, tile);
@@ -37,21 +48,49 @@ public class Square : MonoBehaviour
         return new Point(newX, newY);
     }
 
+    public void makeMaze()
+    {
+        path = true;
+        sprite = sprite2;
+        hasBeenCheckedTwice = true;
+        ArrayList neighbors = getNeighbors();
+        while (neighbors.Count > 0)
+        {
+            System.Random rand = new System.Random();
+            int i = (int)(rand.NextDouble() * neighbors.Count);
+            Square possiblePath = (Square) neighbors[i];
+            if (!possiblePath.secondCheck())
+            {
+                possiblePath.makeMaze();
+            }
+            else
+            {
+                neighbors.RemoveAt(i);
+            }
+        }
 
-    public bool check()
+    }
+
+    public bool firstCheck()
     {
         if (!hasBeenChecked)
         {
             hasBeenChecked = true;
             return false;
         }
+        else
+        {
+            if (!hasBeenCheckedTwice)
+            {
+                hasBeenCheckedTwice = true;
+            }
+        }
         return hasBeenChecked;
     }
 
-    public void makeMaze()
+    public bool secondCheck()
     {
-
-
+        return hasBeenCheckedTwice;
     }
 
     private ArrayList getNeighbors()
@@ -60,34 +99,34 @@ public class Square : MonoBehaviour
         ArrayList neighbors = new ArrayList(); //[NORTH,EAST,SOUTH,WEST]
         if (y < WorldData.HEIGHT - 1)
         {
-            if (WorldData.grid[x, y + 1].check() == false)
+            if (WorldData.grid[x, y + 1].firstCheck() == false)
             {
                 Square temp = WorldData.grid[x, y + 1];
-                ArrayList.Add(temp);
+                neighbors.Add(temp);
             }
         }
         if (x < WorldData.WIDTH - 1)
         {
-            if (WorldData.grid[x + 1, y].check() == false)
+            if (WorldData.grid[x + 1, y].firstCheck() == false)
             {
                 Square temp = WorldData.grid[x + 1, y];
-                ArrayList.Add(temp);
+                neighbors.Add(temp);
             }
         }
         if (y > 0)
         {
-            if (WorldData.grid[x, y - 1].check() == false)
+            if (WorldData.grid[x, y - 1].firstCheck() == false)
             {
                 Square temp = WorldData.grid[x, y - 1];
-                ArrayList.Add(temp);
+                neighbors.Add(temp);
             }
         }
         if (x > 0)
         {
-            if (WorldData.grid[x - 1, y].check() == false)
+            if (WorldData.grid[x - 1, y].firstCheck() == false)
             {
                 Square temp = WorldData.grid[x - 1, y];
-                ArrayList.Add(temp);
+                neighbors.Add(temp);
             }
         }
 
@@ -95,7 +134,6 @@ public class Square : MonoBehaviour
 
 
     }
-
 
     class Point
     {

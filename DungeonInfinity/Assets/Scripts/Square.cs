@@ -48,78 +48,53 @@ public class Square : MonoBehaviour
         return hasBeenChecked;
     }
 
-
-    private Square[] getNeighbors()
+    public void makeMaze()
     {
-        Square[] neighbors = new Square[4]; //[NORTH,EAST,SOUTH,WEST]
-        if (y < WorldData.HEIGHT-1)
+
+
+    }
+
+    private ArrayList getNeighbors()
+    {
+
+        ArrayList neighbors = new ArrayList(); //[NORTH,EAST,SOUTH,WEST]
+        if (y < WorldData.HEIGHT - 1)
         {
             if (WorldData.grid[x, y + 1].check() == false)
             {
-                neighbors[0] = WorldData.grid[x, y + 1];
+                Square temp = WorldData.grid[x, y + 1];
+                ArrayList.Add(temp);
             }
-            else
-            {
-                neighbors[0] = null;
-            }
-        }
-        else
-        {
-            neighbors[0] = null;
         }
         if (x < WorldData.WIDTH - 1)
         {
             if (WorldData.grid[x + 1, y].check() == false)
             {
-                neighbors[1] = WorldData.grid[x + 1, y];
-            }
-            else
-            {
-                neighbors[1] = null;
+                Square temp = WorldData.grid[x + 1, y];
+                ArrayList.Add(temp);
             }
         }
-        else
-        {
-            neighbors[1] = null;
-        }
-        if (y > 0 )
+        if (y > 0)
         {
             if (WorldData.grid[x, y - 1].check() == false)
             {
-                neighbors[2] = WorldData.grid[x, y - 1];
+                Square temp = WorldData.grid[x, y - 1];
+                ArrayList.Add(temp);
             }
-            else
-            {
-                neighbors[2] = null;
-            }
-        }
-        else
-        {
-            neighbors[2] = null;
         }
         if (x > 0)
         {
             if (WorldData.grid[x - 1, y].check() == false)
             {
-                neighbors[3] = WorldData.grid[x - 1, y];
+                Square temp = WorldData.grid[x - 1, y];
+                ArrayList.Add(temp);
             }
-            else
-            {
-                neighbors[3] = null;
-            }
-        }
-        else
-        {
-            neighbors[3] = null;
         }
 
         return neighbors;
 
 
     }
-
-    private 
-
 
 
     class Point

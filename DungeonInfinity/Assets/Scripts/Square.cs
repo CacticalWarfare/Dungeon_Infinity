@@ -12,11 +12,10 @@ public class Square : MonoBehaviour
     private bool path = false;
     private GameObject tile;
     private Sprite sprite;
-    private Sprite sprite2;
     private int id;
     private float scale;
 
-    public Square(int x, int y, GameObject tile, float scale, Sprite sprite, int id,Sprite sprite2)
+    public Square(int x, int y, GameObject tile, float scale, Sprite sprite, int id)
     {
         this.x = x;
         this.y = y;
@@ -27,7 +26,16 @@ public class Square : MonoBehaviour
         this.tile = tile;
         this.sprite = sprite;
         this.scale = scale;
-        this.sprite2 = sprite2;
+    }
+
+    public bool isPath()
+    {
+        return path;
+    }
+
+    public void setSprite(Sprite sprite)
+    {
+        this.sprite = sprite;
     }
 
     public void instantiate()
@@ -42,8 +50,8 @@ public class Square : MonoBehaviour
     private Point rotateXAxis(float x, float y, GameObject tile)
     {
 
-        float newX = (float)((tile.renderer.bounds.size.x * x + tile.renderer.bounds.size.y * y) * Math.Sqrt(3) / 2);//(float)(tile.renderer.bounds.size.x * x * Math.Sqrt(2)) + (float)(tile.renderer.bounds.size.y * y / Math.Sqrt(2));
-        float newY = (float)((tile.renderer.bounds.size.y * y - tile.renderer.bounds.size.x * x) / 2);//(float)(tile.renderer.bounds.size.y * y / 2.85);
+        float newX = (float)((tile.renderer.bounds.size.x * x + tile.renderer.bounds.size.y * y) / Math.Sqrt(2));//(float)(tile.renderer.bounds.size.x * x * Math.Sqrt(2)) + (float)(tile.renderer.bounds.size.y * y / Math.Sqrt(2));
+        float newY = (float)((tile.renderer.bounds.size.y * y - tile.renderer.bounds.size.x * x) / 2.85);//(float)(tile.renderer.bounds.size.y * y / 2.85);
 
         return new Point(newX, newY);
     }
@@ -51,13 +59,12 @@ public class Square : MonoBehaviour
     public void makeMaze()
     {
         path = true;
-        sprite = sprite2;
         hasBeenCheckedTwice = true;
         ArrayList neighbors = getNeighbors();
+        System.Random rand = new System.Random(10);
         while (neighbors.Count > 0)
         {
-            System.Random rand = new System.Random();
-            int i = (int)(rand.NextDouble() * neighbors.Count);
+            int i = (int) (rand.NextDouble() * neighbors.Count);
             Square possiblePath = (Square) neighbors[i];
             if (!possiblePath.secondCheck())
             {

@@ -18,11 +18,11 @@ public GameObject grid;
             {
                 if (i == 0 || i == width - 1 || j  == 0 || j == height -1)//|| j == height - i - 1 || i == 0 || i == width)
                 {
-                    new Square(i, j, grid, 1, edgeSpace,1);
+                    WorldData.grid[i,j] = new Square(i, j, grid, 1, edgeSpace,1);
                 }
                 else
                 {
-                    new Square(i, j, grid, 1, gridSpace,0);
+                    WorldData.grid[i, j] = new Square(i, j, grid, 1, gridSpace, 0);
 
                 }
             }

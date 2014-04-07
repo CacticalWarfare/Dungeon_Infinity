@@ -5,14 +5,14 @@ using System;
 public class Square : MonoBehaviour
 {
 
-    public float x = 0;
-    public float y = 0;
+    public int x = 0;
+    public int y = 0;
     private bool hasBeenChecked;
     private GameObject tile;
     public Sprite sprite;
     private int id;
 
-    public Square(float x, float y, GameObject gridSpace, float scale, Sprite sprite, int id)
+    public Square(int x, int y, GameObject gridSpace, float scale, Sprite sprite, int id)
     {
         this.x = x;
         this.y = y;
@@ -28,10 +28,15 @@ public class Square : MonoBehaviour
         Instantiate(tile, new Vector3(p.getX(), p.getY(), 0), Quaternion.Euler(60, 0, 45));
     }
 
-    private void changeSprite(String sprite)
+    private Point rotateXAxis(float x, float y, GameObject tile)
     {
-        
+
+        float newX = (float)((tile.renderer.bounds.size.x * x + tile.renderer.bounds.size.y * y) * Math.Sqrt(3) / 2);//(float)(tile.renderer.bounds.size.x * x * Math.Sqrt(2)) + (float)(tile.renderer.bounds.size.y * y / Math.Sqrt(2));
+        float newY = (float)((tile.renderer.bounds.size.y * y - tile.renderer.bounds.size.x * x) / 2);//(float)(tile.renderer.bounds.size.y * y / 2.85);
+
+        return new Point(newX, newY);
     }
+
 
     public bool check()
     {
@@ -43,20 +48,79 @@ public class Square : MonoBehaviour
         return hasBeenChecked;
     }
 
-    private Point rotateXAxis(float x, float y, GameObject tile)
-    {
-        
-        float newX = (float) ((tile.renderer.bounds.size.x * x + tile.renderer.bounds.size.y * y) * Math.Sqrt(3)/2);//(float)(tile.renderer.bounds.size.x * x * Math.Sqrt(2)) + (float)(tile.renderer.bounds.size.y * y / Math.Sqrt(2));
-        float newY =(float) ((tile.renderer.bounds.size.y * y - tile.renderer.bounds.size.x * x) / 2);//(float)(tile.renderer.bounds.size.y * y / 2.85);
 
-        return new Point(newX, newY);
+    private Square[] getNeighbors()
+    {
+        Square[] neighbors = new Square[4]; //[NORTH,EAST,SOUTH,WEST]
+        if (y < WorldData.HEIGHT-1)
+        {
+            if (WorldData.grid[x, y + 1].check() == false)
+            {
+                neighbors[0] = WorldData.grid[x, y + 1];
+            }
+            else
+            {
+                neighbors[0] = null;
+            }
+        }
+        else
+        {
+            neighbors[0] = null;
+        }
+        if (x < WorldData.WIDTH - 1)
+        {
+            if (WorldData.grid[x + 1, y].check() == false)
+            {
+                neighbors[1] = WorldData.grid[x + 1, y];
+            }
+            else
+            {
+                neighbors[1] = null;
+            }
+        }
+        else
+        {
+            neighbors[1] = null;
+        }
+        if (y > 0 )
+        {
+            if (WorldData.grid[x, y - 1].check() == false)
+            {
+                neighbors[2] = WorldData.grid[x, y - 1];
+            }
+            else
+            {
+                neighbors[2] = null;
+            }
+        }
+        else
+        {
+            neighbors[2] = null;
+        }
+        if (x > 0)
+        {
+            if (WorldData.grid[x - 1, y].check() == false)
+            {
+                neighbors[3] = WorldData.grid[x - 1, y];
+            }
+            else
+            {
+                neighbors[3] = null;
+            }
+        }
+        else
+        {
+            neighbors[3] = null;
+        }
+
+        return neighbors;
+
+
     }
 
-    private void checkNeighbors()
-    {
+    private 
 
 
-    }
 
     class Point
     {

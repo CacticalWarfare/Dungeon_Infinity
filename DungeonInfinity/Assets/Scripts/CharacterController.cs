@@ -2,13 +2,16 @@
 using System;
 
 public class CharacterController : MonoBehaviour {
-	public float maxSpeed = 40f;
+    public GameObject Sword;
+    public GameObject Chestplate;
+
+	public float maxSpeed = 60f;
 	private bool facingRight = true;
     private Vector3 velocity = Vector3.zero;
 
     private float headToFeetDist = 3f;
 
-    public Vector3 goalPosition;
+    public Vector3 goalPosition = Vector3.zero;
 
     private static int Z_DISPLACEMENT = -20;
 	Animator anim;
@@ -18,31 +21,21 @@ public class CharacterController : MonoBehaviour {
 		anim = GetComponent<Animator>();
         goalPosition = transform.position;
         //target = Vector3.zero;
+        Sword.transform.position = transform.position;
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
         transform.position = new Vector3(transform.position.x, transform.position.y, Z_DISPLACEMENT);
         
+        
         if (Input.GetButton("Fire1"))
-            //Input.GetMouseButtonDown(0))
         {
-
-            //Debug.Log("x: " + x);
-            //Debug.Log("y: " + y);
-
-            //Debug.Log("transform.position.x: " + transform.position.x);
-            //Debug.Log("transform.position.y: " + transform.position.y);
-
-            //target = new Vector3(x, y, Z_DISPLACEMENT);
             goalPosition = this.GetComponentInChildren<Camera>().ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Z_DISPLACEMENT));
             goalPosition.y += headToFeetDist;
-            //transform.position = new Vector3(x, y, Z_DISPLACEMENT);
-            //Debug.Log("transform.position: " + transform.position);
-            //Debug.Log(target);
         }
         if (transform.position != goalPosition)
-            transform.position = Vector3.SmoothDamp(transform.position, goalPosition, ref velocity, .3f, maxSpeed);
+            transform.position = Vector3.SmoothDamp(transform.position, goalPosition, ref velocity, .1f, maxSpeed);
 
         if (anim)
         {
@@ -60,13 +53,33 @@ public class CharacterController : MonoBehaviour {
             else if (moveX < 0 && facingRight)
                 flip();
         }
+
+        if (facingRight)
+        {
+            Sword.transform.position = new Vector3(transform.position.x + 3, transform.position.y, Z_DISPLACEMENT);
+        }
+        else
+        {
+            Sword.transform.position = new Vector3(transform.position.x - 3, transform.position.y, Z_DISPLACEMENT);
+        }
+
+        Chestplate.transform.position = new Vector3(transform.position.x, transform.position.y - 1, Z_DISPLACEMENT);
 	}
 	
 	void flip() {
 		facingRight = !facingRight;
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;
+
+        Vector3 chest = Chestplate.transform.localScale;
+        chest.x *= -1;
+
+        Vector3 sord = Sword.transform.localScale;
+        sord.x *= -1;
+
 		transform.localScale = theScale;
+        Chestplate.transform.localScale = chest;
+        Sword.transform.localScale = sord;
 	}
 	
 }
